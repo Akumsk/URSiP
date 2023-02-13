@@ -4,7 +4,7 @@
 - Queries in "queries"
 - Excel original file in "sources"
 
-views.py - Aplications for parsing excel file, creating dataframe/table for DB
+views.py - Aplications for parsing excel file
 
 model.py - Creating model, connection to db SQLite
 
