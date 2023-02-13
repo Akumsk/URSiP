@@ -2,17 +2,18 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
-def parsing_excel_3groups (df_excel):
+
+def parsing_excel_3groups(df_excel):
     # Input data
     name_col_1 = df_excel[0][0]  # id
     name_col_2 = df_excel[1][0]  # company
     name_group_1 = 'status'
-    value_1_groupe_1 = df_excel[2][0]  # fact, can optimizing with Unique()
-    value_2_groupe_1 = df_excel[6][0]  # forecast, can optimizing with Unique()
+    value_1_groupe_1 = df_excel[2][0]  # fact, ##can optimize with Unique()
+    value_2_groupe_1 = df_excel[6][0]  # forecast, ##can optimize with Unique()
 
     name_group_2 = 'type'
-    value_1_groupe_2 = df_excel[2][1]  # Qliq, can optimizing with Unique()
-    value_2_groupe_2 = df_excel[4][1]  # Qoil, can optimizing with Unique()
+    value_1_groupe_2 = df_excel[2][1]  # Qliq, ##can optimize with Unique()
+    value_2_groupe_2 = df_excel[4][1]  # Qoil, ##can optimize with Unique()
 
     name_group_3 = 'data_type'
     value_1_groupe_3 = df_excel[2][2]  # data1
@@ -28,6 +29,7 @@ def parsing_excel_3groups (df_excel):
     df_excel.columns = list_name_collumns
 
     # Add dates
+    ## Should be taken outside def
     df_excel['date'] = ['2022-01-01', '2022-01-05', '2022-01-10', '2022-01-15', '2022-01-01',
                         '2022-01-05', '2022-01-10', '2022-01-15', '2022-01-30', '2022-01-25',
                         '2022-01-01', '2022-01-12', '2022-01-10', '2022-01-15', '2022-01-01',
@@ -71,7 +73,7 @@ def parsing_excel_3groups (df_excel):
     # Finally renaming df
     df_db = df_db[['id', 'company', 'date', 'type', 'status', 'data_type', 'value']]
 
-    #Define/check type of collumns
+    # Define/check type of collumns
     df_db.id = df_db.id.astype(int)
     df_db.company = df_db.company.astype(str)
     df_db.type = df_db.type.astype(str)
@@ -80,5 +82,3 @@ def parsing_excel_3groups (df_excel):
     df_db.value = df_db.value.astype(int)
 
     return df_db
-
-
