@@ -1,4 +1,4 @@
-# URSiP-parsing_excel
+# URSiP_parsing_excel
 
 - SQLite Data_Base in excel_parser.sqlite
 - Queries in "queries"
