@@ -59,7 +59,7 @@ for column in dict_df_concat:
         dict_df_concat[column] = dict_df_concat[column].drop([0, 1, 2])
 
 # Concat df to DB table
-df_concat = dict_df_concat[''.join([value_1_groupe_1, value_1_groupe_2, value_1_groupe_3])]
+df_db = dict_df_concat[''.join([value_1_groupe_1, value_1_groupe_2, value_1_groupe_3])]
 for dict_key in dict_df_concat.keys():
     if (value_1_groupe_1 in dict_key
             or value_2_groupe_1 in dict_key
@@ -67,24 +67,16 @@ for dict_key in dict_df_concat.keys():
             or value_2_groupe_2 in dict_key):
         if dict_key == ''.join([value_1_groupe_1, value_1_groupe_2, value_1_groupe_3]):
             continue
-        df_concat = df_concat.merge(dict_df_concat[dict_key], how='outer')
+        df_db = df_db.merge(dict_df_concat[dict_key], how='outer')
 
-df_concat = df_concat[['id', 'company', 'date', 'type', 'status', 'data_type', 'value']]
+df_db = df_db[['id', 'company', 'date', 'type', 'status', 'data_type', 'value']]
 
 #Define/check type of collumns
-df_concat.id = df_concat.id.astype(int)
-df_concat.company = df_concat.company.astype(str)
-df_concat.type = df_concat.type.astype(str)
-df_concat.status = df_concat.status.astype(str)
-df_concat.data_type = df_concat.data_type.astype(str)
-df_concat.value = df_concat.value.astype(int)
+df_db.id = df_db.id.astype(int)
+df_db.company = df_db.company.astype(str)
+df_db.type = df_db.type.astype(str)
+df_db.status = df_db.status.astype(str)
+df_db.data_type = df_db.data_type.astype(str)
+df_db.value = df_db.value.astype(int)
 
-#Result: Creating group_table_v1
-df_groupe_by_date_1 = df_concat.groupby(['date', 'type', 'data_type', ], sort = 'date').aggregate({'value': 'sum'})
-with pd.ExcelWriter('queries\Result_Groupe_by_date_1.xlsx') as writer:
-    df_groupe_by_date_1.to_excel(writer, sheet_name='Groupe_by_date')
 
-#Result: Creating group_table_v2
-df_groupe_by_date_2 = pd.pivot_table(df_concat, values='value', index=['date', 'type'], columns=['data_type'], aggfunc=np.sum)
-with pd.ExcelWriter('queries\Result_Groupe_by_date_2.xlsx') as writer:
-    df_groupe_by_date_2.to_excel(writer, sheet_name='Groupe_by_date')
