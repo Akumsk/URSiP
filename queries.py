@@ -8,6 +8,7 @@ with pd.ExcelWriter('queries\Result_Groupe_by_date_1.xlsx') as writer:
     df_groupe_by_date_1.to_excel(writer, sheet_name='Groupe_by_date')
 
 # Result: Creating group_table_v2
-df_groupe_by_date_2 = pd.pivot_table(df_parsing, values='value', index=['date', 'type'], columns=['data_type'], aggfunc=np.sum)
+df_groupe_by_date_2 = pd.pivot_table(df_parsing, values='value', index=['date', 'type'], columns=['data_type'],
+                                     aggfunc=np.sum)
 with pd.ExcelWriter('queries\Result_Groupe_by_date_2.xlsx') as writer:
     df_groupe_by_date_2.to_excel(writer, sheet_name='Groupe_by_date')

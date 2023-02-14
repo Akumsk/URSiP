@@ -2,9 +2,11 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
-def add_date (df_excel,lst):
+
+def add_date(df_excel, lst):
     df_excel[len(df_excel.columns)] = (['date', '', ''] + lst)
     return df_excel
+
 
 def parsing_excel_3groups(df_excel):
     # Input data
