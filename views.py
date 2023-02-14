@@ -8,7 +8,7 @@ def add_date(df_excel, lst):
     return df_excel
 
 
-def parsing_excel_3groups(df_excel):
+def parsing_excel_3groups(df_excel): # Should divide on several def
     # Input data
     name_col_1 = df_excel[0][0]  # id
     name_col_2 = df_excel[1][0]  # company
