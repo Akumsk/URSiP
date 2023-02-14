@@ -2,6 +2,9 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
+def add_date (df_excel,lst):
+    df_excel[len(df_excel.columns)] = (['date', '', ''] + lst)
+    return df_excel
 
 def parsing_excel_3groups(df_excel):
     # Input data
@@ -27,16 +30,6 @@ def parsing_excel_3groups(df_excel):
 
     # Rename columns
     df_excel.columns = list_name_collumns
-
-    # Add dates
-    ## Should be taken outside def
-    df_excel['date'] = ['2022-01-01', '2022-01-05', '2022-01-10', '2022-01-15', '2022-01-01',
-                        '2022-01-05', '2022-01-10', '2022-01-15', '2022-01-30', '2022-01-25',
-                        '2022-01-01', '2022-01-12', '2022-01-10', '2022-01-15', '2022-01-01',
-                        '2022-01-01', '2022-01-07', '2022-01-18', '2022-01-17', '2022-01-02',
-                        '2022-01-18', '2022-01-17', '2022-01-02']
-    df_excel['date'] = df_excel['date'].apply(
-        lambda x: datetime.strptime(x, '%Y-%m-%d'))
 
     ##Separating origin Excel table to DF, match by groups
     dict_df_concat = dict.fromkeys(df_excel.columns)
@@ -80,5 +73,8 @@ def parsing_excel_3groups(df_excel):
     df_db.status = df_db.status.astype(str)
     df_db.data_type = df_db.data_type.astype(str)
     df_db.value = df_db.value.astype(int)
+
+    # Add uniq ID to index
+    df_db.reset_index(inplace=True)
 
     return df_db
